@@ -1,5 +1,6 @@
 % Initital the number of UAVs
 Params.num_UAVs = 6;
+Params.range = 10;
 
 % Initial the mission area, include prohibited area\interference area
 % \obstacle area
@@ -33,3 +34,29 @@ Params.optimal = 1;
 Params.u_gb = Inf;
 Params.acs_flag = true;
 Params.as_flag = false;
+
+% Initial the grids of mission area
+Nx = round((max(Params.Mission_Area{2}(:,1)) - min(Params.Mission_Area{2}(:,1)))/Params.range);
+Ny = round((max(Params.Mission_Area{2}(:,2)) - min(Params.Mission_Area{2}(:,2)))/Params.range);
+Params.num_grids = Nx*Ny;                              % 区域栅格化后顶点个数
+Params.grids = zeros(Params.num_grids, 2);             % 区域栅格化顶点坐标，用来计算监视覆盖范围
+for ii = 1: Nx
+    for jj = 1: Ny
+        Params.grids((ii-1)*Ny + jj, :) = [Params.range/2 + (ii-1)*Params.range,...
+         Params.range/2 + (jj-1)*Params.range];
+    end
+end
+
+% Delete the grid points not in ileagal area, inclde points outside mission area, 
+% points in Prohibited/Interference/Obstacle area
+idx = [];
+for ii = 1: Params.num_grids
+    if ~In_Area(Params.grids(ii, :), Params.mission_area, 'P') ||...
+        In_Area(Params.grids(ii, :), Params.prohibited_area, 'P')||...
+        In_Area(Params.grids(ii, :), Params.interference_area, 'I')||...
+        In_Area(Params.grids(ii, :), Params.Obstacle_Area, 'O')
+        idx = [idx; ii];
+    end
+end
+Params.grids(idx, :) = [];
+Params.num_grids = size(Params.grids, 1);
