@@ -38,8 +38,8 @@ Params.as_flag = false;
 % Initial the grids of mission area
 Nx = round((max(Params.Mission_Area{2}(:,1)) - min(Params.Mission_Area{2}(:,1)))/Params.range);
 Ny = round((max(Params.Mission_Area{2}(:,2)) - min(Params.Mission_Area{2}(:,2)))/Params.range);
-Params.num_grids = Nx*Ny;                              % 区域栅格化后顶点个数
-Params.grids = zeros(Params.num_grids, 2);             % 区域栅格化顶点坐标，用来计算监视覆盖范围
+Params.num_grids = Nx*Ny;                              % num of vertex
+Params.grids = zeros(Params.num_grids, 2);             % location of vertex
 for ii = 1: Nx
     for jj = 1: Ny
         Params.grids((ii-1)*Ny + jj, :) = [Params.range/2 + (ii-1)*Params.range,...

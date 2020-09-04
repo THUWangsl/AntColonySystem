@@ -18,12 +18,6 @@ end
 end
 
 function in_area = In_Prohibited_Area(Point, Prohibited_Area)
-% 判断某个点是否在禁飞区内
-% 输入：
-% Point             某个点的坐标
-% Prohibited_Area   禁飞区
-% 输出：
-% in_area           是否在禁飞区内，0：不在禁飞区内，1：在禁飞区内
 
 in_area = 0;
 for ii = 2: Prohibited_Area{1} + 1
@@ -34,12 +28,6 @@ end
 end
 
 function in_area = In_Interference_Area(Point, Interference_Area)
-% 判断某个点是否在干扰区内
-% 输入：
-% Point                 某个点的坐标
-% Interference_Area     干扰区
-% 输出：
-% in_area               是否在干扰区内，0：不在干扰区内，1：在干扰区内
 
 in_area = 0;
 for ii = 2: Interference_Area{1} + 1
@@ -50,12 +38,6 @@ end
 end
 
 function in_area = In_Obstacle_Area(Point, Obstacle_Area)
-% 判断某个点是否在障碍区内
-% 输入：
-% Point                 某个点的坐标
-% Obstacle_Area         障碍区
-% 输出：
-% in_area               是否在障碍区内，0：不在障碍区内，1：在障碍区内
 
 in_area = 0;
 for ii = 2: Obstacle_Area{1} + 1
